@@ -166,14 +166,15 @@ def train(
 
 if __name__ == "__main__":
     from pathlib import Path
-    # when running locally: just 2 epochs, batch size 2, CPU
-    # when running on Kaggle: pass epochs=30, batch_size=8, device="cuda"
 
-    # resolve path relative to this file's location
     project_root = Path(__file__).parent.parent.parent
     data_dir = project_root / "data" / "raw" / "bdappv" / "google"
+
+    print(f"Looking for data in: {data_dir}")
+    print(f"Data dir exists: {data_dir.exists()}")
+
     train(
-        data_dir="data/raw/bdappv/google",
+        data_dir=data_dir,
         epochs=2,
         batch_size=2,
         device="auto",
