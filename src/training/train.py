@@ -157,7 +157,8 @@ def train(
         # save best model
         if avg_val_iou > best_val_iou:
             best_val_iou = avg_val_iou
-            torch.save(model.state_dict(), "models/best_model.pth")
+            os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
+            torch.save(model.state_dict(), save_path)
             print(f"  → new best model saved (IoU: {best_val_iou:.4f})")
 
     print(f"\nTraining complete. Best val IoU: {best_val_iou:.4f}")
@@ -173,9 +174,13 @@ if __name__ == "__main__":
     print(f"Looking for data in: {data_dir}")
     print(f"Data dir exists: {data_dir.exists()}")
 
-    train(
-        data_dir=data_dir,
-        epochs=2,
-        batch_size=2,
-        device="auto",
-    )
+def train(
+        data_dir: str | Path,
+        epochs: int = 30,
+        batch_size: int = 8,
+        lr: float = 1e-3,
+        val_split: float = 0.15,
+        device: str = "auto",
+        num_workers: int = 0,
+        save_path: str = "models/best_model.pth",
+):
