@@ -17,9 +17,13 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY requirements-docker.txt .
 RUN pip install --no-cache-dir -r requirements-docker.txt
 
+# install gcloud storage client
+RUN pip install --no-cache-dir google-cloud-storage
+
 COPY src/ ./src/
-COPY models/best_model.pth ./models/best_model.pth
+COPY start.sh .
+RUN chmod +x start.sh
 
 EXPOSE 8000
 
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["./start.sh"]
