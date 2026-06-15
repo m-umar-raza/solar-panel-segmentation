@@ -1,9 +1,10 @@
 # Solar Panel Segmentation from Aerial Imagery
 
-End-to-end deep learning pipeline for detecting and segmenting solar panels in aerial imagery, deployed as a public REST API.
+End-to-end deep learning pipeline for detecting and segmenting solar panels in aerial imagery, deployed as a public REST API with interactive demo.
 
-**Live API**: https://solar-panel-segmentation-655838531680.europe-west1.run.app/docs
+**Live Demo**: https://solar-panel-segmentation-4.streamlit.app/
 
+**API Docs**: https://solar-panel-segmentation-655838531680.europe-west1.run.app/docs
 ---
 
 ## Results
