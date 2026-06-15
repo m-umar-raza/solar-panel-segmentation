@@ -148,38 +148,25 @@ Loss decreased from ~0.97 (random init) to 0.0425 by epoch 30. IoU improved cons
 ---
 
 ## Project Structure
+
+
 solar-panel-segmentation/
 ├── src/
-
 │   ├── data/
-
 │   │   └── dataset.py          # PyTorch Dataset class
-
 │   ├── models/
-
 │   │   └── unet.py             # U-Net builder
-
 │   ├── training/
-
 │   │   ├── train.py            # training loop
-
 │   │   └── losses.py           # Dice loss and IoU metric
-
 │   └── api/
-
 │       └── main.py             # FastAPI inference service
-
 ├── notebooks/
-
 │   └── 01_eda.ipynb            # dataset exploration
-
 ├── Dockerfile
-
 ├── start.sh
-
 └── requirements-docker.txt
 
----
 
 ## Limitations
 
