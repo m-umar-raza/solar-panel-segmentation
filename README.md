@@ -149,7 +149,7 @@ Loss decreased from ~0.97 (random init) to 0.0425 by epoch 30. IoU improved cons
 
 ## Project Structure
 
-
+```
 solar-panel-segmentation/
 ├── src/
 │   ├── data/
@@ -166,7 +166,7 @@ solar-panel-segmentation/
 ├── Dockerfile
 ├── start.sh
 └── requirements-docker.txt
-
+```
 
 ## Limitations
 
