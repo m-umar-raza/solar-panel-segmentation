@@ -27,6 +27,7 @@ def train(
         val_split: float = 0.15,
         device: str = "auto",
         num_workers: int = 0,
+        save_path: str = "models/best_model.pth",
 ):
     """Train the U-Net model.
 
@@ -38,6 +39,7 @@ def train(
         val_split: fraction of data to hold out for validation
         device: "auto" picks GPU if available, else CPU
         num_workers: DataLoader worker processes (0 = main process only, safe on Windows)
+        save_path: where to save the best model checkpoint
     """
 
     # --- device setup ---
@@ -82,8 +84,7 @@ def train(
     loss_fn = build_loss()
     optimizer = AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
 
-    # OneCycleLR: warms up LR then anneals it down over training
-    # improves convergence vs a fixed learning rate
+    # warms up LR then anneals it down over training
     scheduler = OneCycleLR(
         optimizer,
         max_lr=lr,
@@ -111,7 +112,7 @@ def train(
             # forward pass
             logits = model(images)
 
-            # squeeze channel dim from logits to match mask shape
+            # squeeze channel dim to match mask shape
             loss = loss_fn(logits.squeeze(1), masks)
 
             # backward pass
@@ -166,21 +167,17 @@ def train(
 
 
 if __name__ == "__main__":
-    from pathlib import Path
-
     project_root = Path(__file__).parent.parent.parent
     data_dir = project_root / "data" / "raw" / "bdappv" / "google"
+    save_path = str(project_root / "models" / "best_model.pth")
 
     print(f"Looking for data in: {data_dir}")
     print(f"Data dir exists: {data_dir.exists()}")
 
-def train(
-        data_dir: str | Path,
-        epochs: int = 30,
-        batch_size: int = 8,
-        lr: float = 1e-3,
-        val_split: float = 0.15,
-        device: str = "auto",
-        num_workers: int = 0,
-        save_path: str = "models/best_model.pth",
-):
+    train(
+        data_dir=data_dir,
+        epochs=2,
+        batch_size=2,
+        device="auto",
+        save_path=save_path,
+    )
